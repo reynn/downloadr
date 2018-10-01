@@ -25,6 +25,10 @@ func New(p string, l downloadr.Logger) *manager {
 	}
 }
 
+func (m *manager) GetCount() int {
+	return len(m.plugins)
+}
+
 func (m *manager) Gather(rootCmd *cobra.Command) error {
 	ff, e := ioutil.ReadDir(m.path)
 	if e != nil {
@@ -56,4 +60,12 @@ func (m *manager) Gather(rootCmd *cobra.Command) error {
 	}
 	m.logger.Debug("Loaded %d plugins", len(m.plugins))
 	return nil
+}
+
+func (m *manager) GetPlugins() []downloadr.DownloadPlugin {
+	var ps []downloadr.DownloadPlugin
+	for _, v := range m.plugins {
+		ps = append(ps, v)
+	}
+	return ps
 }

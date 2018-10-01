@@ -1,16 +1,3 @@
-# DownloadR
-
-## Project Goals
-
-Goal is to create a easy to use application to download files from across the internet.
-To do this the project will take advantage of Golang's plugin support to allow independent updates.
-
-
-## Basic plugin
-
-A basic plugin would look something like this:
-
-```go
 package main
 
 import (
@@ -45,8 +32,3 @@ func (v *ExamplePlugin) GetVersion() string {
 }
 
 var Plugin ExamplePlugin // This must be in the plugin like this so that we can load the plugin
-```
-
-Once this is in place you can build the plugin using the following command:
-
-`go build -buildmode=plugin -ldflags "-X main.version=0.2.0" -o plugins/example.so plugins/example/main.go`

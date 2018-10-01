@@ -10,6 +10,8 @@ type DownloadPlugin interface {
 
 type PluginManager interface {
 	Gather(rootCmd *cobra.Command) error
+	GetPlugins() []DownloadPlugin
+	GetCount() int
 }
 
 type Logger interface {
