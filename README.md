@@ -1,2 +1,0 @@
-# downloadr
-Pluggable download agent
