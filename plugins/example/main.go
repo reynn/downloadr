@@ -13,7 +13,9 @@ type ExamplePlugin struct{}
 // Register registers the plugin with Cobra as a subcommand, can take advantage of anything within cobra to make robust commands
 func (v *ExamplePlugin) Register(rootCmd *cobra.Command, logger downloadr.Logger) error {
 	rootCmd.AddCommand(&cobra.Command{
-		Use: "example",
+		Use:   "example",
+		Short: "An example of how to create a plugin",
+		Long:  "An example of plugins for Downloadr, this does nothing on it's own",
 		Run: func(c *cobra.Command, aa []string) {
 			logger.Info("ExamplePlugin with arguments %v", aa)
 		},
@@ -22,12 +24,12 @@ func (v *ExamplePlugin) Register(rootCmd *cobra.Command, logger downloadr.Logger
 }
 
 // GetName should return the name of the plugin
-func (v *ExamplePlugin) GetName() string {
+func (v *ExamplePlugin) Name() string {
 	return "ExamplePlugin"
 }
 
 // GetVersion should return the version of the plugin
-func (v *ExamplePlugin) GetVersion() string {
+func (v *ExamplePlugin) Version() string {
 	return version
 }
 

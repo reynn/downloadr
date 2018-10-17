@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"github.com/olekukonko/tablewriter"
 	"github.com/reynn/downloadr"
 	"github.com/reynn/downloadr/log"
 	"github.com/reynn/downloadr/plugin"
 	"github.com/spf13/cobra"
+	"io"
+	"os"
 )
 
 const (
@@ -14,27 +17,39 @@ const (
 
 func pluginCommand(mana downloadr.PluginManager) *cobra.Command {
 	pluginsCmd := &cobra.Command{
-		Use:"plugins",
+		Use:   "plugins",
+		Short: "Plugin management",
 		Run: func(c *cobra.Command, aa []string) {
 			fmt.Printf("There are %d plugins available\n", mana.GetCount())
 		},
 	}
 
 	pluginsCmd.AddCommand(&cobra.Command{
-		Use:"list",
+		Use:   "list",
+		Short: "list all plugins",
 		Run: func(c *cobra.Command, aa []string) {
-			for _, p := range mana.GetPlugins(){
-				fmt.Printf("Name: %s\tVersion: %s\n", p.GetName(), p.GetVersion())
-			}
+			displayPlugins(mana.GetScraperPlugins(), os.Stdout)
 		},
 	})
 
 	return pluginsCmd
 }
 
+func displayPlugins(plugins []downloadr.ScraperPlugin, w io.Writer) {
+	table := tablewriter.NewWriter(w)
+	table.SetHeader([]string{"Name", "Version"})
+
+	for _, p := range plugins {
+		table.Append([]string{p.Name(), p.Version()})
+	}
+
+	table.Render()
+}
+
 func versionPlugin() *cobra.Command {
 	return &cobra.Command{
-		Use: "version",
+		Use:   "version",
+		Short: "Display version information",
 		Run: func(c *cobra.Command, aa []string) {
 			fmt.Printf("DownloadR version: %s\n", version)
 		},

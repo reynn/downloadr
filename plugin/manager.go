@@ -13,15 +13,23 @@ import (
 
 type manager struct {
 	path    string
-	plugins map[string]downloadr.DownloadPlugin
+	plugins map[string]downloadr.ScraperPlugin
 	logger  downloadr.Logger
+}
+
+func (m *manager) GetScraperPlugins() []downloadr.ScraperPlugin {
+	var ps []downloadr.ScraperPlugin
+	for _, v := range m.plugins {
+		ps = append(ps, v)
+	}
+	return ps
 }
 
 func New(p string, l downloadr.Logger) *manager {
 	return &manager{
 		path:    p,
 		logger:  l,
-		plugins: map[string]downloadr.DownloadPlugin{},
+		plugins: map[string]downloadr.ScraperPlugin{},
 	}
 }
 
@@ -50,22 +58,14 @@ func (m *manager) Gather(rootCmd *cobra.Command) error {
 			continue
 		}
 
-		plug, ok := s.(downloadr.DownloadPlugin)
+		plug, ok := s.(downloadr.ScraperPlugin)
 		if !ok {
 			m.logger.Error("plugin, %s, does not adhere do the DownloadPlugin interface", f.Name())
 		} else {
 			plug.Register(rootCmd, m.logger)
-			m.plugins[plug.GetName()] = plug
+			m.plugins[plug.Name()] = plug
 		}
 	}
 	m.logger.Debug("Loaded %d plugins", len(m.plugins))
 	return nil
-}
-
-func (m *manager) GetPlugins() []downloadr.DownloadPlugin {
-	var ps []downloadr.DownloadPlugin
-	for _, v := range m.plugins {
-		ps = append(ps, v)
-	}
-	return ps
 }

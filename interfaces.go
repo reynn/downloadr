@@ -1,16 +1,20 @@
 package downloadr
 
-import "github.com/spf13/cobra"
+import (
+	"github.com/spf13/cobra"
+)
 
-type DownloadPlugin interface {
+// ScraperPlugin will handle scraping a site to discover URLs to download
+type ScraperPlugin interface {
 	Register(rootCmd *cobra.Command, logger Logger) error
-	GetName() string
-	GetVersion() string
+	Name() string
+	Version() string
 }
 
+// PluginManager manage the load and usage of plugins
 type PluginManager interface {
 	Gather(rootCmd *cobra.Command) error
-	GetPlugins() []DownloadPlugin
+	GetScraperPlugins() []ScraperPlugin
 	GetCount() int
 }
 
