@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"os"
+
 	"github.com/olekukonko/tablewriter"
 	"github.com/reynn/downloadr"
 	"github.com/reynn/downloadr/log"
 	"github.com/reynn/downloadr/plugin"
 	"github.com/spf13/cobra"
-	"io"
-	"os"
 )
 
 const (
