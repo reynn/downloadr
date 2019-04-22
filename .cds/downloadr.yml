@@ -7,6 +7,7 @@ workflow:
     application: downloadr
     payload:
       git.author: ""
+      git.author.email: ""
       git.branch: master
       git.hash: ""
       git.hash.before: ""
@@ -46,4 +47,4 @@ workflow:
     application: downloadr
     environment: downloadr-dev
 metadata:
-  default_tags: git.branch,git.author
+  default_tags: git.branch,git.author,git.author.email
