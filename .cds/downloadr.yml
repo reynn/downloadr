@@ -1,0 +1,49 @@
+name: downloadr
+version: v1.0
+template: shared.infra/demo-workflow-skeleton
+workflow:
+  build:
+    pipeline: build-1
+    application: downloadr
+    payload:
+      git.author: ""
+      git.branch: master
+      git.hash: ""
+      git.hash.before: ""
+      git.message: ""
+      git.repository: reynn/downloadr
+      git.tag: ""
+  deploy-dev:
+    depends_on:
+    - build
+    pipeline: deploy-1
+    application: downloadr
+    environment: downloadr-dev
+  deploy-preprod:
+    depends_on:
+    - fork
+    when:
+    - success
+    pipeline: deploy-1
+    application: downloadr
+    environment: downloadr-preprod
+  deploy-prod:
+    depends_on:
+    - fork
+    when:
+    - manual
+    - success
+    pipeline: deploy-1
+    application: downloadr
+    environment: downloadr-prod
+  fork:
+    depends_on:
+    - it-dev
+  it-dev:
+    depends_on:
+    - deploy-dev
+    pipeline: it-1
+    application: downloadr
+    environment: downloadr-dev
+metadata:
+  default_tags: git.branch,git.author

@@ -1,0 +1,7 @@
+version: v1.0
+name: deploy-1
+jobs:
+- job: deploy
+  steps:
+  - script:
+    - echo "Deploying my application at {{.cds.env.url}}"
