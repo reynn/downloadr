@@ -1,0 +1,6 @@
+version: v1.0
+name: downloadr
+vcs_server: github
+repo: reynn/downloadr
+vcs_connection_type: ssh
+vcs_ssh_key: proj-ssh-downloadr
