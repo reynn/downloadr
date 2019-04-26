@@ -14,7 +14,7 @@ jobs:
       artifactUpload: "true"
       binary: '{{.cds.application}}'
       cgoDisabled: "true"
-      detectRaceCondition: "true"
+      detectRaceCondition: "false"
       os: linux
       runGoGet: "false"
 - job: package
