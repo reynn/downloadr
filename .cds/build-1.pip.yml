@@ -12,10 +12,11 @@ jobs:
   - CDS_GoBuild:
       architecture: amd64
       artifactUpload: "true"
-      binary: '{{.cds.application}}'
+      binary: '{{.cds.application}}-linux-amd64'
       cgoDisabled: "true"
       detectRaceCondition: "false"
       os: linux
+      preRun: GO111MODULE=on
       runGoGet: "false"
 - job: package
   stage: package
