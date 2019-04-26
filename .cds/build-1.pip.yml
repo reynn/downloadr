@@ -15,6 +15,7 @@ jobs:
       binary: '{{.cds.application}}-linux-amd64'
       cgoDisabled: "true"
       detectRaceCondition: "false"
+      package: github.com/reynn/downloadr/cmd
       os: linux
       preRun: GO111MODULE=on
       runGoGet: "false"
