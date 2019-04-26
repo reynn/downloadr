@@ -9,6 +9,14 @@ jobs:
   steps:
   - script:
     - echo "Building my application"
+  - CDS_GoBuild:
+      architecture: amd64
+      artifactUpload: "true"
+      binary: '{{.cds.application}}'
+      cgoDisabled: "true"
+      detectRaceCondition: "true"
+      os: linux
+      runGoGet: "false"
 - job: package
   stage: package
   steps:
