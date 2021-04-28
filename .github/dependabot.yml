@@ -1,0 +1,13 @@
+version: 2
+updates:
+- package-ecosystem: gomod
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  reviewers:
+  - reynn
+  ignore:
+  - dependency-name: github.com/olekukonko/tablewriter
+    versions:
+    - 0.0.4
